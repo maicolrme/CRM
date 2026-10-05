@@ -1,0 +1,65 @@
+@model AdminUserListViewModel
+@{
+    ViewData["Title"] = T["Navigation.Users"];
+}
+
+<div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+        <h1 class="text-2xl font-semibold tracking-tight text-ink">@T["Navigation.Users"]</h1>
+        <p class="mt-1 text-sm text-muted">@T["Admin.Title"]</p>
+    </div>
+</div>
+
+<form method="get" class="mt-5 flex flex-wrap gap-3">
+    <input type="text" name="search" value="@Model.Search" placeholder="@T["Common.Search"]" class="input max-w-md flex-1" />
+    <button type="submit" class="btn btn-secondary">@T["Common.Search"]</button>
+</form>
+
+<div class="mt-5 overflow-hidden rounded-lg border border-gray-200 bg-white">
+    @if (!Model.Users.Any())
+    {
+        <p class="px-5 py-10 text-center text-sm text-muted">@T["Admin.Empty"]</p>
+    }
+    else
+    {
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+            <thead class="bg-surface">
+                <tr class="text-left text-xs font-semibold uppercase tracking-wider text-muted">
+                    <th class="px-5 py-3">@T["Common.User"]</th>
+                    <th class="px-5 py-3">@T["Common.Email"]</th>
+                    <th class="px-5 py-3">@T["Navigation.Roles"]</th>
+                    <th class="px-5 py-3">@T["Common.Status"]</th>
+                    <th class="px-5 py-3 text-right">@T["Common.Actions"]</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                @foreach (var u in Model.Users)
+                {
+                    <tr class="hover:bg-surface">
+                        <td class="px-5 py-3 font-medium text-ink">@u.FullName</td>
+                        <td class="px-5 py-3 text-muted">@u.Email</td>
+                        <td class="px-5 py-3">
+                            <span class="rounded-full px-2 py-0.5 text-xs font-medium @(u.IsAdmin ? "bg-primary/10 text-primary" : "bg-gray-100 text-gray-600")">
+                                @(u.IsAdmin ? T["Admin.RoleAdmin"] : T["Admin.RoleUser"])
+                            </span>
+                        </td>
+                        <td class="px-5 py-3">
+                            <span class="rounded-full px-2 py-0.5 text-xs font-medium @(u.IsActive ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700")">
+                                @(u.IsActive ? T["Admin.IsActive"] : T["Customer.Status.Inactive"])
+                            </span>
+                        </td>
+                        <td class="px-5 py-3 text-right">
+                            <div class="flex justify-end gap-1">
+                                <a href="/admin/users/@u.Id" class="btn btn-ghost btn-sm">@T["Common.Edit"]</a>
+                                <form action="/admin/users/@u.Id/toggle" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-ghost btn-sm">@T["Admin.Toggle"]</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

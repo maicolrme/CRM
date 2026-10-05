@@ -1,0 +1,38 @@
+@model LoginViewModel
+@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = T["Auth.LoginTitle"];
+}
+
+<h1 class="text-xl font-semibold text-ink">@T["Auth.LoginTitle"]</h1>
+<p class="mt-1 text-sm text-muted">@T["Auth.NoAccount"] <a href="/register" class="font-medium text-primary hover:underline">@T["Auth.Register"]</a></p>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="mt-4 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700" asp-validation-summary="All"></div>
+}
+
+<form asp-action="Login" method="post" class="mt-6 space-y-4">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="ReturnUrl" />
+
+    <div>
+        <label asp-for="Email" class="label">@T["Auth.Email"]</label>
+        <input asp-for="Email" class="input" autocomplete="username" />
+        <span asp-validation-for="Email" class="field-validation-error"></span>
+    </div>
+
+    <div>
+        <label asp-for="Password" class="label">@T["Auth.Password"]</label>
+        <input asp-for="Password" class="input" autocomplete="current-password" />
+        <span asp-validation-for="Password" class="field-validation-error"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-full py-2.5">@T["Auth.Login"]</button>
+</form>
+
+<p class="mt-6 text-center text-xs text-muted">admin@example.com · user@example.com</p>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

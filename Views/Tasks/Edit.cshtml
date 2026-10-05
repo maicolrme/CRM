@@ -1,0 +1,50 @@
+@model TaskFormViewModel
+@{
+    ViewData["Title"] = T["Task.Edit"];
+}
+
+<div class="max-w-2xl">
+    <h1 class="text-2xl font-semibold tracking-tight text-ink">@T["Task.Edit"]</h1>
+
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="mt-6 space-y-5 rounded-lg border border-gray-200 bg-white p-6">
+        @Html.AntiForgeryToken()
+
+        <div>
+            <label asp-for="Title" class="label">@T["Common.Name"]</label>
+            <input asp-for="Title" class="input" />
+            <span asp-validation-for="Title" class="field-validation-error"></span>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+                <label asp-for="CustomerId" class="label">@T["Activity.FilterCustomer"]</label>
+                <select asp-for="CustomerId" asp-items="@(SelectList)ViewBag.Customers" class="input">
+                    <option value="">—</option>
+                </select>
+            </div>
+            <div>
+                <label asp-for="Status" class="label">@T["Common.Status"]</label>
+                <select asp-for="Status" asp-items="@(List<SelectListItem>)ViewBag.Statuses" class="input"></select>
+            </div>
+        </div>
+
+        <div class="max-w-xs">
+            <label asp-for="DueDate" class="label">@T["Task.DueDate"]</label>
+            <input asp-for="DueDate" type="datetime-local" class="input" />
+        </div>
+
+        <div>
+            <label asp-for="Description" class="label">@T["Common.Description"]</label>
+            <textarea asp-for="Description" rows="4" class="input"></textarea>
+        </div>
+
+        <div class="flex gap-3 border-t border-gray-100 pt-4">
+            <button type="submit" class="btn btn-primary">@T["Common.Save"]</button>
+            <a href="/tasks" class="btn btn-secondary">@T["Common.Cancel"]</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

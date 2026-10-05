@@ -1,0 +1,55 @@
+@model CompanyFormViewModel
+@{
+    ViewData["Title"] = T["Company.Create"];
+}
+
+<div class="max-w-2xl">
+    <h1 class="text-2xl font-semibold tracking-tight text-ink">@T["Company.Create"]</h1>
+
+    <form asp-action="Create" method="post" class="mt-6 space-y-5 rounded-lg border border-gray-200 bg-white p-6">
+        @Html.AntiForgeryToken()
+
+        <div>
+            <label asp-for="Name" class="label">@T["Common.Name"]</label>
+            <input asp-for="Name" class="input" />
+            <span asp-validation-for="Name" class="field-validation-error"></span>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+                <label asp-for="Email" class="label">@T["Common.Email"]</label>
+                <input asp-for="Email" class="input" />
+                <span asp-validation-for="Email" class="field-validation-error"></span>
+            </div>
+            <div>
+                <label asp-for="Phone" class="label">@T["Common.Phone"]</label>
+                <input asp-for="Phone" class="input" />
+            </div>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+                <label asp-for="Website" class="label">@T["Company.Website"]</label>
+                <input asp-for="Website" class="input" />
+            </div>
+            <div>
+                <label asp-for="Address" class="label">@T["Company.Address"]</label>
+                <input asp-for="Address" class="input" />
+            </div>
+        </div>
+
+        <div>
+            <label asp-for="Notes" class="label">@T["Customer.Notes"]</label>
+            <textarea asp-for="Notes" rows="3" class="input"></textarea>
+        </div>
+
+        <div class="flex gap-3 border-t border-gray-100 pt-4">
+            <button type="submit" class="btn btn-primary">@T["Common.Save"]</button>
+            <a href="/companies" class="btn btn-secondary">@T["Common.Cancel"]</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

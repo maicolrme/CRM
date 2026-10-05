@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = T["Navigation.Roles"];
+}
+
+<div class="max-w-3xl">
+    <p class="text-sm text-muted"><a href="/admin/users" class="hover:text-primary">@T["Admin.Title"]</a></p>
+    <h1 class="mt-1 text-2xl font-semibold tracking-tight text-ink">@T["Admin.SystemRoles"]</h1>
+
+    <div class="mt-6 overflow-hidden rounded-lg border border-gray-200 bg-white">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+            <thead class="bg-surface">
+                <tr class="text-left text-xs font-semibold uppercase tracking-wider text-muted">
+                    <th class="px-5 py-3">@T["Navigation.Roles"]</th>
+                    <th class="px-5 py-3">@T["Common.Description"]</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                <tr>
+                    <td class="px-5 py-4">
+                        <span class="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">@T["Admin.RoleAdmin"]</span>
+                    </td>
+                    <td class="px-5 py-4 text-muted">@T["Admin.RoleAdminDesc"]</td>
+                </tr>
+                <tr>
+                    <td class="px-5 py-4">
+                        <span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">@T["Admin.RoleUser"]</span>
+                    </td>
+                    <td class="px-5 py-4 text-muted">@T["Admin.RoleUserDesc"]</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

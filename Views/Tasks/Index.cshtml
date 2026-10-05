@@ -1,0 +1,88 @@
+@model TaskListViewModel
+@{
+    ViewData["Title"] = T["Task.Title"];
+}
+
+<div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+        <h1 class="text-2xl font-semibold tracking-tight text-ink">@T["Task.Title"]</h1>
+        <p class="mt-1 text-sm text-muted">@Model.Tasks.Count</p>
+    </div>
+    <a href="/tasks/create" class="btn btn-primary">@T["Task.Create"]</a>
+</div>
+
+<form method="get" class="mt-5 flex flex-wrap gap-3">
+    <select name="status" class="input max-w-[14rem]">
+        <option value="">@T["Common.All"]</option>
+        @foreach (CrmTaskStatus s in Enum.GetValues<CrmTaskStatus>())
+        {
+            <option value="@((int)s)" selected="@(Model.Status == s)">@T[$"Task.Status.{s}"]</option>
+        }
+    </select>
+    <button type="submit" class="btn btn-secondary">@T["Common.Search"]</button>
+</form>
+
+<div class="mt-5 overflow-hidden rounded-lg border border-gray-200 bg-white">
+    @if (!Model.Tasks.Any())
+    {
+        <p class="px-5 py-10 text-center text-sm text-muted">@T["Task.Empty"]</p>
+    }
+    else
+    {
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+            <thead class="bg-surface">
+                <tr class="text-left text-xs font-semibold uppercase tracking-wider text-muted">
+                    <th class="px-5 py-3">@T["Common.Name"]</th>
+                    <th class="px-5 py-3">@T["Activity.FilterCustomer"]</th>
+                    <th class="px-5 py-3">@T["Task.DueDate"]</th>
+                    <th class="px-5 py-3">@T["Common.Status"]</th>
+                    <th class="px-5 py-3 text-right">@T["Common.Actions"]</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                @foreach (var t in Model.Tasks)
+                {
+                    var overdue = t.Status != CrmTaskStatus.Completed && t.DueDate.HasValue && t.DueDate.Value < DateTime.UtcNow;
+                    <tr class="hover:bg-surface">
+                        <td class="px-5 py-3 font-medium text-ink">
+                            @t.Title
+                            @if (overdue)
+                            {
+                                <span class="ml-2 rounded bg-red-50 px-1.5 py-0.5 text-xs font-medium text-red-600">@T["Task.Overdue"]</span>
+                            }
+                        </td>
+                        <td class="px-5 py-3 text-muted">
+                            @if (t.CustomerId.HasValue)
+                            {
+                                <a href="/customers/@t.CustomerId" class="hover:text-primary">@t.Customer?.FullName</a>
+                            }
+                            else { <text>—</text> }
+                        </td>
+                        <td class="px-5 py-3 text-muted">@(t.DueDate?.ToShortDateString() ?? "—")</td>
+                        <td class="px-5 py-3">
+                            <span class="rounded-full px-2 py-0.5 text-xs font-medium @(t.Status == CrmTaskStatus.Completed ? "bg-green-50 text-green-700" : t.Status == CrmTaskStatus.InProgress ? "bg-blue-50 text-blue-700" : "bg-amber-50 text-amber-700")">
+                                @T[$"Task.Status.{t.Status}"]
+                            </span>
+                        </td>
+                        <td class="px-5 py-3 text-right">
+                            <div class="flex justify-end gap-1">
+                                @if (t.Status != CrmTaskStatus.Completed)
+                                {
+                                    <form action="/tasks/@t.Id/complete" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-ghost btn-sm">@T["Task.Complete"]</button>
+                                    </form>
+                                }
+                                <a href="/tasks/@t.Id/edit" class="btn btn-ghost btn-sm">@T["Common.Edit"]</a>
+                                <form action="/tasks/@t.Id/delete" method="post" onsubmit="return confirm('@T["Common.ConfirmDelete"]');">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-ghost btn-sm text-red-600">@T["Common.Delete"]</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

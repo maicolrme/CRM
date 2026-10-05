@@ -1,0 +1,47 @@
+@using System.Globalization
+@{
+    var culture = CultureInfo.CurrentUICulture.Name;
+    bool IsSelected(string code) => culture.StartsWith(code);
+}
+<!DOCTYPE html>
+<html lang="@culture">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CRM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#4F46E5', primaryDark: '#3730A3', surface: '#F8FAFC', ink: '#111827', muted: '#64748B' },
+                    fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="min-h-screen bg-surface font-sans text-ink antialiased">
+    <div class="flex min-h-screen flex-col items-center justify-center px-4 py-10">
+        <a href="/" class="mb-6 flex items-center gap-2">
+            <span class="flex h-9 w-9 items-center justify-center rounded-md bg-primary text-sm font-bold text-white">C</span>
+            <span class="text-lg font-semibold tracking-tight">CRM</span>
+        </a>
+        <div class="w-full max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+            @RenderBody()
+        </div>
+        <div class="mt-6 flex items-center gap-2 text-sm">
+            <a href="/language/en?returnUrl=@Uri.EscapeDataString(Context.Request.Path.ToString())"
+               class="rounded-md px-2 py-1 @(IsSelected("en") ? "bg-white font-medium text-primary shadow-sm" : "text-gray-500 hover:text-primary")">English</a>
+            <a href="/language/es?returnUrl=@Uri.EscapeDataString(Context.Request.Path.ToString())"
+               class="rounded-md px-2 py-1 @(IsSelected("es") ? "bg-white font-medium text-primary shadow-sm" : "text-gray-500 hover:text-primary")">Español</a>
+            <a href="/language/it?returnUrl=@Uri.EscapeDataString(Context.Request.Path.ToString())"
+               class="rounded-md px-2 py-1 @(IsSelected("it") ? "bg-white font-medium text-primary shadow-sm" : "text-gray-500 hover:text-primary")">Italiano</a>
+        </div>
+    </div>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,61 @@
+@using System.Globalization
+@{
+    var culture = CultureInfo.CurrentUICulture.Name;
+    bool IsSelected(string code) => culture.StartsWith(code);
+}
+<!DOCTYPE html>
+<html lang="@culture">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CRM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#4F46E5', primaryDark: '#3730A3', surface: '#F8FAFC', ink: '#111827', muted: '#64748B' },
+                    fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="min-h-screen bg-surface font-sans text-ink antialiased">
+    <div class="flex min-h-screen flex-col">
+        <header class="border-b border-gray-200 bg-white">
+            <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+                <a href="/" class="flex items-center gap-2">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-sm font-bold text-white">C</span>
+                    <span class="text-base font-semibold tracking-tight">CRM</span>
+                </a>
+                <div class="flex items-center gap-3">
+                    <div class="relative" id="langMenu">
+                        <button type="button" onclick="document.getElementById('langDropdown').classList.toggle('hidden')"
+                                class="inline-flex h-9 items-center gap-1.5 rounded-md border border-gray-200 px-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                            @(IsSelected("es") ? "ES" : IsSelected("it") ? "IT" : "EN")
+                        </button>
+                        <div id="langDropdown" class="hidden absolute right-0 mt-2 w-40 rounded-md border border-gray-200 bg-white py-1 shadow-lg z-10">
+                            <a class="block px-3 py-2 text-sm @(IsSelected("en") ? "bg-surface font-medium text-primary" : "text-gray-700 hover:bg-gray-50")" href="/language/en?returnUrl=@Uri.EscapeDataString(Context.Request.Path + Context.Request.QueryString)">English</a>
+                            <a class="block px-3 py-2 text-sm @(IsSelected("es") ? "bg-surface font-medium text-primary" : "text-gray-700 hover:bg-gray-50")" href="/language/es?returnUrl=@Uri.EscapeDataString(Context.Request.Path + Context.Request.QueryString)">Español</a>
+                            <a class="block px-3 py-2 text-sm @(IsSelected("it") ? "bg-surface font-medium text-primary" : "text-gray-700 hover:bg-gray-50")" href="/language/it?returnUrl=@Uri.EscapeDataString(Context.Request.Path + Context.Request.QueryString)">Italiano</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="flex-1">
+            @RenderBody()
+        </main>
+    </div>
+    <script>
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('#langMenu')) document.getElementById('langDropdown').classList.add('hidden');
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

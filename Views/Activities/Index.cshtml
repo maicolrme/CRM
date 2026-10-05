@@ -1,0 +1,66 @@
+@model ActivityListViewModel
+@{
+    ViewData["Title"] = T["Activity.Title"];
+}
+
+<div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+        <h1 class="text-2xl font-semibold tracking-tight text-ink">@T["Activity.Title"]</h1>
+        <p class="mt-1 text-sm text-muted">@Model.Activities.Count</p>
+    </div>
+    <a href="/activities/create" class="btn btn-primary">@T["Activity.Create"]</a>
+</div>
+
+<form method="get" class="mt-5 flex flex-wrap gap-3">
+    <select name="customerId" class="input max-w-[14rem]">
+        <option value="">@T["Activity.FilterCustomer"]</option>
+        @foreach (var c in Model.Customers)
+        {
+            <option value="@c.Id" selected="@(Model.CustomerId == c.Id)">@c.FullName</option>
+        }
+    </select>
+    <select name="type" class="input max-w-[12rem]">
+        <option value="">@T["Common.All"]</option>
+        @foreach (ActivityType x in Enum.GetValues<ActivityType>())
+        {
+            <option value="@((int)x)" selected="@(Model.Type == x)">@T[$"Activity.Type.{x}"]</option>
+        }
+    </select>
+    <button type="submit" class="btn btn-secondary">@T["Common.Search"]</button>
+</form>
+
+<div class="mt-5 overflow-hidden rounded-lg border border-gray-200 bg-white">
+    @if (!Model.Activities.Any())
+    {
+        <p class="px-5 py-10 text-center text-sm text-muted">@T["Activity.Empty"]</p>
+    }
+    else
+    {
+        <ul class="divide-y divide-gray-100">
+            @foreach (var a in Model.Activities)
+            {
+                <li class="flex flex-wrap items-start justify-between gap-3 px-5 py-4">
+                    <div class="min-w-0">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">@T[$"Activity.Type.{a.Type}"]</span>
+                            <p class="text-sm font-medium text-ink">@a.Title</p>
+                        </div>
+                        @if (!string.IsNullOrEmpty(a.Description))
+                        {
+                            <p class="mt-1 text-sm text-muted">@a.Description</p>
+                        }
+                        <p class="mt-1 text-xs text-muted">
+                            <a href="/customers/@a.CustomerId" class="hover:text-primary">@a.Customer?.FullName</a>
+                            · @a.CreatedAt.ToShortDateString()
+                            · @T["Activity.LoggedBy"] @a.User.FullName
+                        </p>
+                    </div>
+                    <form action="/activities/@a.Id/delete" method="post" onsubmit="return confirm('@T["Common.ConfirmDelete"]');">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-ghost btn-sm">@T["Common.Delete"]</button>
+                    </form>
+                </li>
+            }
+        </ul>
+    }
+</div>

@@ -1,0 +1,49 @@
+@model RegisterViewModel
+@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = T["Auth.RegisterTitle"];
+}
+
+<h1 class="text-xl font-semibold text-ink">@T["Auth.RegisterTitle"]</h1>
+<p class="mt-1 text-sm text-muted">@T["Auth.HaveAccount"] <a href="/login" class="font-medium text-primary hover:underline">@T["Auth.Login"]</a></p>
+
+<form asp-action="Register" method="post" class="mt-6 space-y-4">
+    @Html.AntiForgeryToken()
+
+    <div class="grid grid-cols-2 gap-3">
+        <div>
+            <label asp-for="FirstName" class="label">@T["Auth.FirstName"]</label>
+            <input asp-for="FirstName" class="input" />
+            <span asp-validation-for="FirstName" class="field-validation-error"></span>
+        </div>
+        <div>
+            <label asp-for="LastName" class="label">@T["Auth.LastName"]</label>
+            <input asp-for="LastName" class="input" />
+            <span asp-validation-for="LastName" class="field-validation-error"></span>
+        </div>
+    </div>
+
+    <div>
+        <label asp-for="Email" class="label">@T["Auth.Email"]</label>
+        <input asp-for="Email" class="input" autocomplete="username" />
+        <span asp-validation-for="Email" class="field-validation-error"></span>
+    </div>
+
+    <div>
+        <label asp-for="Password" class="label">@T["Auth.Password"]</label>
+        <input asp-for="Password" class="input" autocomplete="new-password" />
+        <span asp-validation-for="Password" class="field-validation-error"></span>
+    </div>
+
+    <div>
+        <label asp-for="ConfirmPassword" class="label">@T["Auth.ConfirmPassword"]</label>
+        <input asp-for="ConfirmPassword" class="input" autocomplete="new-password" />
+        <span asp-validation-for="ConfirmPassword" class="field-validation-error"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-full py-2.5">@T["Auth.Register"]</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

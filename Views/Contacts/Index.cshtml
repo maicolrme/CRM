@@ -1,0 +1,50 @@
+@model ContactListViewModel
+@{
+    ViewData["Title"] = T["Contact.Title"];
+}
+
+<div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+        <h1 class="text-2xl font-semibold tracking-tight text-ink">@T["Contact.Title"]</h1>
+        <p class="mt-1 text-sm text-muted">@Model.Contacts.Count</p>
+    </div>
+    <a href="/contacts/create" class="btn btn-primary">@T["Contact.Create"]</a>
+</div>
+
+<form method="get" class="mt-5 flex flex-wrap gap-3">
+    <input type="text" name="search" value="@Model.Search" placeholder="@T["Contact.Search"]" class="input max-w-md flex-1" />
+    <button type="submit" class="btn btn-secondary">@T["Common.Search"]</button>
+</form>
+
+<div class="mt-5 overflow-hidden rounded-lg border border-gray-200 bg-white">
+    @if (!Model.Contacts.Any())
+    {
+        <p class="px-5 py-10 text-center text-sm text-muted">@T["Contact.Empty"]</p>
+    }
+    else
+    {
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+            <thead class="bg-surface">
+                <tr class="text-left text-xs font-semibold uppercase tracking-wider text-muted">
+                    <th class="px-5 py-3">@T["Common.Name"]</th>
+                    <th class="px-5 py-3">@T["Contact.Position"]</th>
+                    <th class="px-5 py-3">@T["Common.Email"]</th>
+                    <th class="px-5 py-3">@T["Common.Company"]</th>
+                    <th class="px-5 py-3 text-right">@T["Common.Actions"]</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                @foreach (var c in Model.Contacts)
+                {
+                    <tr class="hover:bg-surface">
+                        <td class="px-5 py-3 font-medium text-ink">@c.FullName</td>
+                        <td class="px-5 py-3 text-muted">@(c.Position ?? "—")</td>
+                        <td class="px-5 py-3 text-muted">@(c.Email ?? "—")</td>
+                        <td class="px-5 py-3 text-muted">@c.Company?.Name</td>
+                        <td class="px-5 py-3 text-right"><a href="/contacts/@c.Id/edit" class="btn btn-ghost btn-sm">@T["Common.Edit"]</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

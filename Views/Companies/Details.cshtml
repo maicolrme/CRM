@@ -1,0 +1,73 @@
+@model CrmApp.Models.Company
+@{
+    ViewData["Title"] = Model.Name;
+    var contacts = (List<Contact>)ViewBag.Contacts;
+    var customers = (List<Customer>)ViewBag.Customers;
+}
+
+<div class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+        <p class="text-sm text-muted"><a href="/companies" class="hover:text-primary">@T["Company.Title"]</a></p>
+        <h1 class="mt-1 text-2xl font-semibold tracking-tight text-ink">@Model.Name</h1>
+    </div>
+    <div class="flex gap-2">
+        <a href="/companies/@Model.Id/edit" class="btn btn-secondary">@T["Common.Edit"]</a>
+        <form action="/companies/@Model.Id/delete" method="post" onsubmit="return confirm('@T["Common.ConfirmDelete"]');">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger">@T["Common.Delete"]</button>
+        </form>
+    </div>
+</div>
+
+<div class="mt-6 grid gap-6 lg:grid-cols-3">
+    <section class="rounded-lg border border-gray-200 bg-white p-5">
+        <h2 class="text-sm font-semibold text-ink">@T["Company.Details"]</h2>
+        <dl class="mt-4 space-y-3 text-sm">
+            <div><dt class="text-muted">@T["Common.Email"]</dt><dd class="mt-0.5 text-ink">@(Model.Email ?? "—")</dd></div>
+            <div><dt class="text-muted">@T["Common.Phone"]</dt><dd class="mt-0.5 text-ink">@(Model.Phone ?? "—")</dd></div>
+            <div><dt class="text-muted">@T["Company.Website"]</dt><dd class="mt-0.5 text-ink">@(Model.Website ?? "—")</dd></div>
+            <div><dt class="text-muted">@T["Company.Address"]</dt><dd class="mt-0.5 text-ink">@(Model.Address ?? "—")</dd></div>
+            <div><dt class="text-muted">@T["Customer.Notes"]</dt><dd class="mt-0.5 whitespace-pre-wrap text-ink">@(Model.Notes ?? "—")</dd></div>
+        </dl>
+    </section>
+
+    <section class="rounded-lg border border-gray-200 bg-white">
+        <div class="border-b border-gray-200 px-5 py-3.5"><h2 class="text-sm font-semibold text-ink">@T["Company.Contacts"]</h2></div>
+        @if (!contacts.Any())
+        {
+            <p class="px-5 py-8 text-center text-sm text-muted">@T["Contact.Empty"]</p>
+        }
+        else
+        {
+            <ul class="divide-y divide-gray-100">
+                @foreach (var x in contacts)
+                {
+                    <li class="px-5 py-3">
+                        <p class="text-sm font-medium text-ink">@x.FullName</p>
+                        <p class="text-xs text-muted">@(x.Position ?? "") @(x.Email ?? "")</p>
+                    </li>
+                }
+            </ul>
+        }
+    </section>
+
+    <section class="rounded-lg border border-gray-200 bg-white">
+        <div class="border-b border-gray-200 px-5 py-3.5"><h2 class="text-sm font-semibold text-ink">@T["Company.RelatedCustomers"]</h2></div>
+        @if (!customers.Any())
+        {
+            <p class="px-5 py-8 text-center text-sm text-muted">@T["Customer.Empty"]</p>
+        }
+        else
+        {
+            <ul class="divide-y divide-gray-100">
+                @foreach (var x in customers)
+                {
+                    <li class="flex items-center justify-between px-5 py-3">
+                        <a href="/customers/@x.Id" class="text-sm font-medium text-ink hover:text-primary">@x.FullName</a>
+                        <span class="text-xs text-muted">@T[$"Customer.Status.{x.Status}"]</span>
+                    </li>
+                }
+            </ul>
+        }
+    </section>
+</div>

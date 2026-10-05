@@ -1,0 +1,169 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Localization
+@{
+    var culture = CultureInfo.CurrentUICulture.Name;
+    var path = Context.Request.Path + Context.Request.QueryString;
+    bool IsSelected(string code) => culture.StartsWith(code);
+}
+<!DOCTYPE html>
+<html lang="@culture">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CRM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        primaryDark: '#3730A3',
+                        surface: '#F8FAFC',
+                        ink: '#111827',
+                        muted: '#64748B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="bg-white font-sans text-ink antialiased">
+<div class="min-h-screen flex flex-col">
+
+    <header class="sticky top-0 z-30 border-b border-gray-200 bg-white">
+        <div class="flex h-16 items-center gap-4 px-4 sm:px-6">
+            <button type="button" id="sidebarToggle"
+                    class="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-200 text-gray-600 hover:bg-gray-50">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <span class="sr-only">@T["Navigation.Menu"]</span>
+            </button>
+
+            <a href="/dashboard" class="flex items-center gap-2">
+                <span class="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-sm font-bold text-white">C</span>
+                <span class="text-base font-semibold tracking-tight">CRM</span>
+            </a>
+
+            <form action="/customers" method="get" class="hidden md:flex flex-1 max-w-md ml-4">
+                <div class="relative w-full">
+                    <svg class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
+                    </svg>
+                    <input type="text" name="search" value="@Context.Request.Query["search"]"
+                           placeholder="@T["Customer.Search"]"
+                           class="h-9 w-full rounded-md border border-gray-200 bg-surface pl-9 pr-3 text-sm text-ink placeholder:text-gray-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" />
+                </div>
+            </form>
+
+            <div class="ml-auto flex items-center gap-2 sm:gap-3">
+                <div class="relative" id="langMenu">
+                    <button type="button" onclick="toggleLang()"
+                            class="inline-flex h-9 items-center gap-1.5 rounded-md border border-gray-200 px-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        <svg class="h-4 w-4 text-gray-500" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zM3.6 9h16.8M3.6 15h16.8M12 3a13.5 13.5 0 000 18M12 3a13.5 13.5 0 010 18" />
+                        </svg>
+                        @(IsSelected("es") ? "ES" : IsSelected("it") ? "IT" : "EN")
+                    </button>
+                    <div id="langDropdown" class="hidden absolute right-0 mt-2 w-40 rounded-md border border-gray-200 bg-white py-1 shadow-lg">
+                        <a class="block px-3 py-2 text-sm @(IsSelected("en") ? "bg-surface font-medium text-primary" : "text-gray-700 hover:bg-gray-50")" href="/language/en?returnUrl=@Uri.EscapeDataString(path)">English</a>
+                        <a class="block px-3 py-2 text-sm @(IsSelected("es") ? "bg-surface font-medium text-primary" : "text-gray-700 hover:bg-gray-50")" href="/language/es?returnUrl=@Uri.EscapeDataString(path)">Español</a>
+                        <a class="block px-3 py-2 text-sm @(IsSelected("it") ? "bg-surface font-medium text-primary" : "text-gray-700 hover:bg-gray-50")" href="/language/it?returnUrl=@Uri.EscapeDataString(path)">Italiano</a>
+                    </div>
+                </div>
+
+                <div class="relative" id="userMenu">
+                    <button type="button" onclick="toggleUser()"
+                            class="inline-flex items-center gap-2 rounded-md px-1.5 py-1.5 hover:bg-gray-50">
+                        <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+                            @(User.Identity?.Name?.Substring(0, 1).ToUpper() ?? "?")
+                        </span>
+                        <span class="hidden sm:block text-sm font-medium text-gray-700">@User.Identity?.Name</span>
+                    </button>
+                    <div id="userDropdown" class="hidden absolute right-0 mt-2 w-48 rounded-md border border-gray-200 bg-white py-1 shadow-lg">
+                        <a href="/profile" class="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50">@T["Profile.Title"]</a>
+                        <form action="/logout" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="block w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50">@T["Auth.Logout"]</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-1">
+        <aside id="sidebar"
+               class="fixed inset-y-0 left-0 z-40 mt-16 w-60 -translate-x-full border-r border-gray-200 bg-surface transition-transform lg:static lg:mt-0 lg:translate-x-0">
+            <nav class="flex h-full flex-col gap-1 p-3 overflow-y-auto">
+                <a href="/dashboard" class="nav-item">@T["Navigation.Dashboard"]</a>
+                <a href="/customers" class="nav-item">@T["Navigation.Customers"]</a>
+                <a href="/companies" class="nav-item">@T["Navigation.Companies"]</a>
+                <a href="/contacts" class="nav-item">@T["Navigation.Contacts"]</a>
+                <a href="/activities" class="nav-item">@T["Navigation.Activities"]</a>
+                <a href="/tasks" class="nav-item">@T["Navigation.Tasks"]</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="mt-4 border-t border-gray-200 pt-3">
+                        <p class="px-3 pb-1 text-xs font-semibold uppercase tracking-wider text-gray-400">@T["Navigation.Admin"]</p>
+                        <a href="/admin/users" class="nav-item">@T["Navigation.Users"]</a>
+                        <a href="/admin/roles" class="nav-item">@T["Navigation.Roles"]</a>
+                    </div>
+                }
+            </nav>
+        </aside>
+
+        <div id="sidebarOverlay" class="fixed inset-0 z-30 hidden bg-black/30 lg:hidden"></div>
+
+        <main class="min-w-0 flex-1 px-4 py-6 sm:px-6 lg:px-8">
+            @if (TempData["Message"] != null)
+            {
+                <div class="mb-5 rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">
+                    @TempData["Message"]
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="mb-5 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+                    @TempData["Error"]
+                </div>
+            }
+            @RenderBody()
+        </main>
+    </div>
+</div>
+
+<script>
+    function toggleLang() {
+        document.getElementById('langDropdown').classList.toggle('hidden');
+        document.getElementById('userDropdown').classList.add('hidden');
+    }
+    function toggleUser() {
+        document.getElementById('userDropdown').classList.toggle('hidden');
+        document.getElementById('langDropdown').classList.add('hidden');
+    }
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('#langMenu')) document.getElementById('langDropdown').classList.add('hidden');
+        if (!e.target.closest('#userMenu')) document.getElementById('userDropdown').classList.add('hidden');
+    });
+
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    function closeSidebar() { sidebar.classList.add('-translate-x-full'); overlay.classList.add('hidden'); }
+    document.getElementById('sidebarToggle').addEventListener('click', function () {
+        sidebar.classList.toggle('-translate-x-full');
+        overlay.classList.toggle('hidden');
+    });
+    overlay.addEventListener('click', closeSidebar);
+</script>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

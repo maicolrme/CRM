@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="Common.Delete" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="Common.Edit" xml:space="preserve">
+    <value>Modifica</value>
+  </data>
+  <data name="Common.Create" xml:space="preserve">
+    <value>Crea</value>
+  </data>
+  <data name="Common.Search" xml:space="preserve">
+    <value>Cerca</value>
+  </data>
+  <data name="Common.Back" xml:space="preserve">
+    <value>Indietro</value>
+  </data>
+  <data name="Common.Actions" xml:space="preserve">
+    <value>Azioni</value>
+  </data>
+  <data name="Common.Status" xml:space="preserve">
+    <value>Stato</value>
+  </data>
+  <data name="Common.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Common.Phone" xml:space="preserve">
+    <value>Telefono</value>
+  </data>
+  <data name="Common.Notes" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="Common.Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="Common.Details" xml:space="preserve">
+    <value>Dettagli</value>
+  </data>
+  <data name="Common.ConfirmDelete" xml:space="preserve">
+    <value>Sei sicuro di voler eliminare questa registrazione?</value>
+  </data>
+  <data name="Common.NoResults" xml:space="preserve">
+    <value>Nessun risultato trovato</value>
+  </data>
+  <data name="Common.All" xml:space="preserve">
+    <value>Tutti</value>
+  </data>
+  <data name="Common.Language" xml:space="preserve">
+    <value>Lingua</value>
+  </data>
+  <data name="Common.Optional" xml:space="preserve">
+    <value>Facoltativo</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Chiudi</value>
+  </data>
+  <data name="Common.Yes" xml:space="preserve">
+    <value>SÃ¬</value>
+  </data>
+  <data name="Common.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Common.Date" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Common.Description" xml:space="preserve">
+    <value>Descrizione</value>
+  </data>
+  <data name="Common.User" xml:space="preserve">
+    <value>Utente</value>
+  </data>
+  <data name="Common.Company" xml:space="preserve">
+    <value>Azienda</value>
+  </data>
+  <data name="Navigation.Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Navigation.Customers" xml:space="preserve">
+    <value>Clienti</value>
+  </data>
+  <data name="Navigation.Companies" xml:space="preserve">
+    <value>Aziende</value>
+  </data>
+  <data name="Navigation.Contacts" xml:space="preserve">
+    <value>Contatti</value>
+  </data>
+  <data name="Navigation.Activities" xml:space="preserve">
+    <value>AttivitÃ </value>
+  </data>
+  <data name="Navigation.Tasks" xml:space="preserve">
+    <value>Compiti</value>
+  </data>
+  <data name="Navigation.Admin" xml:space="preserve">
+    <value>Amministrazione</value>
+  </data>
+  <data name="Navigation.Users" xml:space="preserve">
+    <value>Utenti</value>
+  </data>
+  <data name="Navigation.Roles" xml:space="preserve">
+    <value>Ruoli</value>
+  </data>
+  <data name="Navigation.Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Navigation.Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="Auth.LoginTitle" xml:space="preserve">
+    <value>Accedi al tuo account</value>
+  </data>
+  <data name="Auth.RegisterTitle" xml:space="preserve">
+    <value>Crea il tuo account</value>
+  </data>
+  <data name="Auth.Email" xml:space="preserve">
+    <value>Indirizzo email</value>
+  </data>
+  <data name="Auth.Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Auth.ConfirmPassword" xml:space="preserve">
+    <value>Conferma password</value>
+  </data>
+  <data name="Auth.FirstName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="Auth.LastName" xml:space="preserve">
+    <value>Cognome</value>
+  </data>
+  <data name="Auth.Login" xml:space="preserve">
+    <value>Accedi</value>
+  </data>
+  <data name="Auth.Register" xml:space="preserve">
+    <value>Registrati</value>
+  </data>
+  <data name="Auth.NoAccount" xml:space="preserve">
+    <value>Non hai un account?</value>
+  </data>
+  <data name="Auth.HaveAccount" xml:space="preserve">
+    <value>Hai giÃ  un account?</value>
+  </data>
+  <data name="Auth.InvalidCredentials" xml:space="preserve">
+    <value>Email o password non validi.</value>
+  </data>
+  <data name="Auth.Logout" xml:space="preserve">
+    <value>Esci</value>
+  </data>
+  <data name="Auth.EmailExists" xml:space="preserve">
+    <value>Quella email Ã¨ giÃ  registrata.</value>
+  </data>
+  <data name="Auth.Registered" xml:space="preserve">
+    <value>Account creato. Ora puoi accedere.</value>
+  </data>
+  <data name="Auth.LanguagePrompt" xml:space="preserve">
+    <value>Lingua</value>
+  </data>
+  <data name="Home.Tagline" xml:space="preserve">
+    <value>Un CRM semplice e moderno per gestire clienti, aziende, contatti, attivitÃ  e compiti.</value>
+  </data>
+  <data name="Home.Features" xml:space="preserve">
+    <value>Tutto quello che ti serve, niente di superfluo.</value>
+  </data>
+  <data name="Home.Feature1Title" xml:space="preserve">
+    <value>Gestione clienti</value>
+  </data>
+  <data name="Home.Feature1Text" xml:space="preserve">
+    <value>Traccia lead, prospect e clienti con stati e note.</value>
+  </data>
+  <data name="Home.Feature2Title" xml:space="preserve">
+    <value>AttivitÃ  e compiti</value>
+  </data>
+  <data name="Home.Feature2Text" xml:space="preserve">
+    <value>Registra chiamate, riunioni e email. Non perdere i follow-up.</value>
+  </data>
+  <data name="Home.Feature3Title" xml:space="preserve">
+    <value>Multilingua</value>
+  </data>
+  <data name="Home.Feature3Text" xml:space="preserve">
+    <value>Inglese, spagnolo e italiano giÃ  disponibili.</value>
+  </data>
+  <data name="Dashboard.Greeting" xml:space="preserve">
+    <value>Buongiorno</value>
+  </data>
+  <data name="Dashboard.Customers" xml:space="preserve">
+    <value>Clienti</value>
+  </data>
+  <data name="Dashboard.OpenTasks" xml:space="preserve">
+    <value>Compiti aperti</value>
+  </data>
+  <data name="Dashboard.Activities" xml:space="preserve">
+    <value>AttivitÃ  totali</value>
+  </data>
+  <data name="Dashboard.RecentCustomers" xml:space="preserve">
+    <value>Clienti recenti</value>
+  </data>
+  <data name="Dashboard.UpcomingTasks" xml:space="preserve">
+    <value>Prossimi compiti</value>
+  </data>
+  <data name="Dashboard.RecentActivities" xml:space="preserve">
+    <value>AttivitÃ  recenti</value>
+  </data>
+  <data name="Dashboard.ViewAll" xml:space="preserve">
+    <value>Vedi tutto</value>
+  </data>
+  <data name="Dashboard.NoTasks" xml:space="preserve">
+    <value>Nessun compito in arrivo.</value>
+  </data>
+  <data name="Dashboard.NoActivities" xml:space="preserve">
+    <value>Nessuna attivitÃ  ancora.</value>
+  </data>
+  <data name="Customer.Title" xml:space="preserve">
+    <value>Clienti</value>
+  </data>
+  <data name="Customer.Create" xml:space="preserve">
+    <value>Nuovo cliente</value>
+  </data>
+  <data name="Customer.Edit" xml:space="preserve">
+    <value>Modifica cliente</value>
+  </data>
+  <data name="Customer.Details" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="Customer.Search" xml:space="preserve">
+    <value>Cerca per nome, email, azienda o telefono...</value>
+  </data>
+  <data name="Customer.Filter" xml:space="preserve">
+    <value>Filtra per stato</value>
+  </data>
+  <data name="Customer.Notes" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="Customer.Activities" xml:space="preserve">
+    <value>AttivitÃ </value>
+  </data>
+  <data name="Customer.Tasks" xml:space="preserve">
+    <value>AttivitÃ </value>
+  </data>
+  <data name="Customer.Created" xml:space="preserve">
+    <value>Cliente creato.</value>
+  </data>
+  <data name="Customer.Updated" xml:space="preserve">
+    <value>Cliente aggiornato.</value>
+  </data>
+  <data name="Customer.Deleted" xml:space="preserve">
+    <value>Cliente eliminato.</value>
+  </data>
+  <data name="Customer.Empty" xml:space="preserve">
+    <value>Nessun cliente trovato.</value>
+  </data>
+  <data name="Customer.Status.Lead" xml:space="preserve">
+    <value>Lead</value>
+  </data>
+  <data name="Customer.Status.Prospect" xml:space="preserve">
+    <value>Prospect</value>
+  </data>
+  <data name="Customer.Status.Customer" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="Customer.Status.Inactive" xml:space="preserve">
+    <value>Inattivo</value>
+  </data>
+  <data name="Company.Title" xml:space="preserve">
+    <value>Aziende</value>
+  </data>
+  <data name="Company.Create" xml:space="preserve">
+    <value>Nuova azienda</value>
+  </data>
+  <data name="Company.Edit" xml:space="preserve">
+    <value>Modifica azienda</value>
+  </data>
+  <data name="Company.Details" xml:space="preserve">
+    <value>Azienda</value>
+  </data>
+  <data name="Company.Search" xml:space="preserve">
+    <value>Cerca aziende...</value>
+  </data>
+  <data name="Company.Website" xml:space="preserve">
+    <value>Sito web</value>
+  </data>
+  <data name="Company.Address" xml:space="preserve">
+    <value>Indirizzo</value>
+  </data>
+  <data name="Company.Contacts" xml:space="preserve">
+    <value>Contatti</value>
+  </data>
+  <data name="Company.RelatedCustomers" xml:space="preserve">
+    <value>Clienti</value>
+  </data>
+  <data name="Company.Created" xml:space="preserve">
+    <value>Azienda creata.</value>
+  </data>
+  <data name="Company.Updated" xml:space="preserve">
+    <value>Azienda aggiornata.</value>
+  </data>
+  <data name="Company.Deleted" xml:space="preserve">
+    <value>Azienda eliminata.</value>
+  </data>
+  <data name="Company.Empty" xml:space="preserve">
+    <value>Nessuna azienda trovata.</value>
+  </data>
+  <data name="Contact.Title" xml:space="preserve">
+    <value>Contatti</value>
+  </data>
+  <data name="Contact.Create" xml:space="preserve">
+    <value>Nuovo contatto</value>
+  </data>
+  <data name="Contact.Edit" xml:space="preserve">
+    <value>Modifica contatto</value>
+  </data>
+  <data name="Contact.Position" xml:space="preserve">
+    <value>Posizione</value>
+  </data>
+  <data name="Contact.Search" xml:space="preserve">
+    <value>Cerca contatti...</value>
+  </data>
+  <data name="Contact.Created" xml:space="preserve">
+    <value>Contatto creato.</value>
+  </data>
+  <data name="Contact.Updated" xml:space="preserve">
+    <value>Contatto aggiornato.</value>
+  </data>
+  <data name="Contact.Deleted" xml:space="preserve">
+    <value>Contatto eliminato.</value>
+  </data>
+  <data name="Contact.Empty" xml:space="preserve">
+    <value>Nessun contatto trovato.</value>
+  </data>
+  <data name="Activity.Title" xml:space="preserve">
+    <value>AttivitÃ </value>
+  </data>
+  <data name="Activity.Create" xml:space="preserve">
+    <value>Nuova attivitÃ </value>
+  </data>
+  <data name="Activity.Type" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="Activity.Type.Call" xml:space="preserve">
+    <value>Chiamata</value>
+  </data>
+  <data name="Activity.Type.Meeting" xml:space="preserve">
+    <value>Riunione</value>
+  </data>
+  <data name="Activity.Type.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Activity.Type.Note" xml:space="preserve">
+    <value>Nota</value>
+  </data>
+  <data name="Activity.Type.Other" xml:space="preserve">
+    <value>Altro</value>
+  </data>
+  <data name="Activity.DueDate" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Activity.LoggedBy" xml:space="preserve">
+    <value>Registrato da</value>
+  </data>
+  <data name="Activity.Created" xml:space="preserve">
+    <value>AttivitÃ  creata.</value>
+  </data>
+  <data name="Activity.Deleted" xml:space="preserve">
+    <value>AttivitÃ  eliminata.</value>
+  </data>
+  <data name="Activity.Empty" xml:space="preserve">
+    <value>Nessuna attivitÃ  trovata.</value>
+  </data>
+  <data name="Activity.FilterCustomer" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="Task.Title" xml:space="preserve">
+    <value>Compiti</value>
+  </data>
+  <data name="Task.Create" xml:space="preserve">
+    <value>Nuovo compito</value>
+  </data>
+  <data name="Task.Edit" xml:space="preserve">
+    <value>Modifica compito</value>
+  </data>
+  <data name="Task.Complete" xml:space="preserve">
+    <value>Completata</value>
+  </data>
+  <data name="Task.MarkCompleted" xml:space="preserve">
+    <value>Segna come completata</value>
+  </data>
+  <data name="Task.Status.Pending" xml:space="preserve">
+    <value>In sospeso</value>
+  </data>
+  <data name="Task.Status.InProgress" xml:space="preserve">
+    <value>In corso</value>
+  </data>
+  <data name="Task.Status.Completed" xml:space="preserve">
+    <value>Completata</value>
+  </data>
+  <data name="Task.DueDate" xml:space="preserve">
+    <value>Scadenza</value>
+  </data>
+  <data name="Task.Created" xml:space="preserve">
+    <value>Compito creato.</value>
+  </data>
+  <data name="Task.Updated" xml:space="preserve">
+    <value>Compito aggiornato.</value>
+  </data>
+  <data name="Task.Deleted" xml:space="preserve">
+    <value>Compito eliminato.</value>
+  </data>
+  <data name="Task.Empty" xml:space="preserve">
+    <value>Nessun compito trovato.</value>
+  </data>
+  <data name="Task.Overdue" xml:space="preserve">
+    <value>In ritardo</value>
+  </data>
+  <data name="Profile.Title" xml:space="preserve">
+    <value>Profilo</value>
+  </data>
+  <data name="Profile.PersonalInfo" xml:space="preserve">
+    <value>Informazioni personali</value>
+  </data>
+  <data name="Profile.Language" xml:space="preserve">
+    <value>Lingua preferita</value>
+  </data>
+  <data name="Profile.ChangePassword" xml:space="preserve">
+    <value>Cambia password</value>
+  </data>
+  <data name="Profile.CurrentPassword" xml:space="preserve">
+    <value>Password attuale</value>
+  </data>
+  <data name="Profile.NewPassword" xml:space="preserve">
+    <value>Nuova password</value>
+  </data>
+  <data name="Profile.ConfirmPassword" xml:space="preserve">
+    <value>Conferma password</value>
+  </data>
+  <data name="Profile.Saved" xml:space="preserve">
+    <value>Profilo aggiornato.</value>
+  </data>
+  <data name="Profile.PasswordChanged" xml:space="preserve">
+    <value>Password aggiornata.</value>
+  </data>
+  <data name="Profile.WrongPassword" xml:space="preserve">
+    <value>La password attuale non Ã¨ corretta.</value>
+  </data>
+  <data name="Admin.Title" xml:space="preserve">
+    <value>Amministrazione</value>
+  </data>
+  <data name="Admin.Users" xml:space="preserve">
+    <value>Utenti</value>
+  </data>
+  <data name="Admin.Roles" xml:space="preserve">
+    <value>Ruoli</value>
+  </data>
+  <data name="Admin.EditUser" xml:space="preserve">
+    <value>Modifica utente</value>
+  </data>
+  <data name="Admin.RoleAdmin" xml:space="preserve">
+    <value>Amministratore</value>
+  </data>
+  <data name="Admin.RoleUser" xml:space="preserve">
+    <value>Utente standard</value>
+  </data>
+  <data name="Admin.MakeAdmin" xml:space="preserve">
+    <value>Accesso amministratore</value>
+  </data>
+  <data name="Admin.IsActive" xml:space="preserve">
+    <value>Account attivo</value>
+  </data>
+  <data name="Admin.Toggle" xml:space="preserve">
+    <value>Attiva / disattiva</value>
+  </data>
+  <data name="Admin.Created" xml:space="preserve">
+    <value>Utente aggiornato.</value>
+  </data>
+  <data name="Admin.Deleted" xml:space="preserve">
+    <value>Utente eliminato.</value>
+  </data>
+  <data name="Admin.Empty" xml:space="preserve">
+    <value>Nessun utente trovato.</value>
+  </data>
+  <data name="Admin.SystemRoles" xml:space="preserve">
+    <value>Ruoli di sistema</value>
+  </data>
+  <data name="Admin.RoleAdminDesc" xml:space="preserve">
+    <value>Accesso completo al pannello di amministrazione e a tutti i dati del CRM.</value>
+  </data>
+  <data name="Admin.RoleUserDesc" xml:space="preserve">
+    <value>Accesso standard a clienti, attivitÃ  e compiti.</value>
+  </data>
+  <data name="Common.Tasks" xml:space="preserve">
+    <value>Compiti</value>
+  </data>
+  <data name="Error.Title" xml:space="preserve">
+    <value>Qualcosa Ã¨ andato storto</value>
+  </data>
+  <data name="Error.NotFound" xml:space="preserve">
+    <value>La pagina richiesta non Ã¨ stata trovata.</value>
+  </data>
+  <data name="Language.En" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Language.Es" xml:space="preserve">
+    <value>EspaÃ±ol</value>
+  </data>
+  <data name="Language.It" xml:space="preserve">
+    <value>Italiano</value>
+  </data>
+</root>

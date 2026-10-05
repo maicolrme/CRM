@@ -1,0 +1,128 @@
+@model CustomerDetailViewModel
+@{
+    var c = Model.Customer;
+    ViewData["Title"] = c.FullName;
+    string Badge(CustomerStatus s) => s switch
+    {
+        CustomerStatus.Lead => "bg-blue-50 text-blue-700 border-blue-200",
+        CustomerStatus.Prospect => "bg-amber-50 text-amber-700 border-amber-200",
+        CustomerStatus.Customer => "bg-green-50 text-green-700 border-green-200",
+        _ => "bg-gray-100 text-gray-600 border-gray-200"
+    };
+}
+
+<div class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+        <p class="text-sm text-muted"><a href="/customers" class="hover:text-primary">@T["Customer.Title"]</a></p>
+        <h1 class="mt-1 text-2xl font-semibold tracking-tight text-ink">@c.FullName</h1>
+        <div class="mt-2 flex flex-wrap items-center gap-3">
+            <span class="inline-flex rounded-full border px-2 py-0.5 text-xs font-medium @Badge(c.Status)">@T[$"Customer.Status.{c.Status}"]</span>
+            @if (c.Company != null)
+            {
+                <a href="/companies/@c.CompanyId" class="text-sm text-primary hover:underline">@c.Company.Name</a>
+            }
+        </div>
+    </div>
+    <div class="flex gap-2">
+        <a href="/customers/@c.Id/edit" class="btn btn-secondary">@T["Common.Edit"]</a>
+        <form action="/customers/@c.Id/delete" method="post" onsubmit="return confirm('@T["Common.ConfirmDelete"]');">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger">@T["Common.Delete"]</button>
+        </form>
+    </div>
+</div>
+
+<div class="mt-6 grid gap-6 lg:grid-cols-3">
+    <section class="rounded-lg border border-gray-200 bg-white p-5 lg:col-span-1">
+        <h2 class="text-sm font-semibold text-ink">@T["Customer.Details"]</h2>
+        <dl class="mt-4 space-y-3 text-sm">
+            <div>
+                <dt class="text-muted">@T["Common.Email"]</dt>
+                <dd class="mt-0.5 text-ink">@(c.Email ?? "—")</dd>
+            </div>
+            <div>
+                <dt class="text-muted">@T["Common.Phone"]</dt>
+                <dd class="mt-0.5 text-ink">@(c.Phone ?? "—")</dd>
+            </div>
+            <div>
+                <dt class="text-muted">@T["Common.Company"]</dt>
+                <dd class="mt-0.5 text-ink">@(c.Company?.Name ?? "—")</dd>
+            </div>
+            <div>
+                <dt class="text-muted">@T["Common.Date"]</dt>
+                <dd class="mt-0.5 text-ink">@c.CreatedAt.ToShortDateString()</dd>
+            </div>
+            <div>
+                <dt class="text-muted">@T["Customer.Notes"]</dt>
+                <dd class="mt-0.5 whitespace-pre-wrap text-ink">@(c.Notes ?? "—")</dd>
+            </div>
+        </dl>
+    </section>
+
+    <section class="rounded-lg border border-gray-200 bg-white lg:col-span-2">
+        <div class="flex items-center justify-between border-b border-gray-200 px-5 py-3.5">
+            <h2 class="text-sm font-semibold text-ink">@T["Customer.Activities"]</h2>
+            <a href="/activities/create?customerId=@c.Id" class="btn btn-ghost btn-sm">+ @T["Activity.Create"]</a>
+        </div>
+        @if (!Model.Activities.Any())
+        {
+            <p class="px-5 py-8 text-center text-sm text-muted">@T["Activity.Empty"]</p>
+        }
+        else
+        {
+            <ul class="divide-y divide-gray-100">
+                @foreach (var a in Model.Activities)
+                {
+                    <li class="px-5 py-3.5">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <p class="text-sm font-medium text-ink">@a.Title</p>
+                            <span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600">@T[$"Activity.Type.{a.Type}"]</span>
+                        </div>
+                        @if (!string.IsNullOrEmpty(a.Description))
+                        {
+                            <p class="mt-1 text-sm text-muted">@a.Description</p>
+                        }
+                        <p class="mt-1 text-xs text-muted">@a.CreatedAt.ToShortDateString() · @a.User.FullName</p>
+                    </li>
+                }
+            </ul>
+        }
+    </section>
+</div>
+
+<section class="mt-6 rounded-lg border border-gray-200 bg-white">
+    <div class="flex items-center justify-between border-b border-gray-200 px-5 py-3.5">
+        <h2 class="text-sm font-semibold text-ink">@T["Common.Tasks"]</h2>
+        <a href="/tasks/create?customerId=@c.Id" class="btn btn-ghost btn-sm">+ @T["Task.Create"]</a>
+    </div>
+    @if (!Model.Tasks.Any())
+    {
+        <p class="px-5 py-8 text-center text-sm text-muted">@T["Task.Empty"]</p>
+    }
+    else
+    {
+        <ul class="divide-y divide-gray-100">
+            @foreach (var t in Model.Tasks)
+            {
+                <li class="flex flex-wrap items-center justify-between gap-3 px-5 py-3.5">
+                    <div>
+                        <p class="text-sm font-medium text-ink">@t.Title</p>
+                        <p class="text-xs text-muted">@(t.DueDate?.ToShortDateString() ?? "—")</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="rounded-full px-2 py-0.5 text-xs @(t.Status == CrmTaskStatus.Completed ? "bg-green-50 text-green-700" : "bg-amber-50 text-amber-700")">
+                            @T[$"Task.Status.{t.Status}"]
+                        </span>
+                        @if (t.Status != CrmTaskStatus.Completed)
+                        {
+                            <form action="/tasks/@t.Id/complete" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-ghost btn-sm">@T["Task.Complete"]</button>
+                            </form>
+                        }
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+</section>

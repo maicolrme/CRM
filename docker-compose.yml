@@ -1,0 +1,15 @@
+services:
+  crm:
+    build: .
+    container_name: crm
+    ports:
+      - "8087:8087"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Default=Data Source=/app/data/crm.db
+    volumes:
+      - crm-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  crm-data:
